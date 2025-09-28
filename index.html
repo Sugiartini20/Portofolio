@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadek Sugiartini - Portofolio Computer Science</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D4A3E',
+                        secondary: '#4A7C59',
+                        accent: '#8FBC8F',
+                        light: '#D4E6D4',
+                        dark: '#1A2E22',
+                        text: '#2D3748'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D4A3E;
+            --secondary: #4A7C59;
+            --accent: #8FBC8F;
+            --light: #D4E6D4;
+            --dark: #1A2E22;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            color: #2D3748;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--secondary);
+            border-radius: 4px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: var(--secondary);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            color: #6B7280;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            border-bottom-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .calculator-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .result-box {
+            background-color: #F0F9F0;
+            border: 1px solid #C6E7C6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .history-item {
+            padding: 12px;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--secondary);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--secondary) }
+        }
+
+        .profile-photo-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(45, 74, 62, 0.8);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-photo-container:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .shape-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .shape-option:hover {
+            background-color: #F0F9F0;
+            border-color: var(--secondary);
+        }
+
+        .shape-option input[type="radio"] {
+            margin-bottom: 8px;
+        }
+
+        .formula-box {
+            background-color: #F8F9FA;
+            border-left: 4px solid var(--secondary);
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .section-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Floating Action Button -->
+    <div class="floating-btn" id="scrollToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <div class="text-2xl font-bold text-primary">Kadek Sugiartini</div>
+                
+                <!-- Desktop Navigation -->
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#home" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Home</a></li>
+                    <li><a href="#about" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">About</a></li>
+                    <li><a href="#skills" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Skills</a></li>
+                    <li><a href="#projects" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Projects</a></li>
+                    <li><a href="#contact" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors">Contact</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden cursor-pointer" id="mobileMenuButton">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </div>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <div class="md:hidden hidden bg-white py-4 border-t" id="mobileMenu">
+                <ul class="flex flex-col space-y-4">
+                    <li><a href="#home" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors block py-2">Home</a></li>
+                    <li><a href="#about" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors block py-2">About</a></li>
+                    <li><a href="#skills" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors block py-2">Skills</a></li>
+                    <li><a href="#projects" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors block py-2">Projects</a></li>
+                    <li><a href="#contact" class="nav-link font-medium text-gray-700 hover:text-primary transition-colors block py-2">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Hello, I'm <span class="text-primary">Kadek Sugiartini</span></h1>
+                    <div class="text-xl md:text-2xl text-gray-600 mb-6 typewriter">Computer Science Student & Aspiring Developer</div>
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl">
+                        Bersemangat menciptakan solusi inovatif melalui teknologi. 
+                        Saat ini mengembangkan keterampilan dalam pengembangan web, desain UI/UX, dan rekayasa perangkat lunak.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-secondary transition-all shadow-md flex items-center">
+                            <i class="fas fa-code mr-2"></i> View My Work
+                        </a>
+                        <a href="#contact" class="border border-primary text-primary py-3 px-6 rounded-lg font-medium hover:bg-primary hover:text-white transition-all flex items-center">
+                            <i class="fas fa-envelope mr-2"></i> Get In Touch
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-2/5 flex justify-center" data-aos="fade-left">
+                    <div class="profile-photo-container w-64 h-64 md:w-80 md:h-80">
+                        <img id="profilePhoto" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                             alt="Kadek Sugiartini" class="w-full h-full object-cover">
+                        <div class="photo-overlay flex justify-center">
+                            <label class="cursor-pointer flex items-center">
+                                <i class="fas fa-camera mr-2"></i>
+                                <span>Change Photo</span>
+                                <input type="file" id="photoUpload" accept="image/*" class="hidden" onchange="uploadImage(event)">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title" data-aos="fade-up">Tentang Saya</h2>
+            <div class="flex flex-col md:flex-row gap-10 items-center">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Perjalanan Saya di Ilmu Komputer</h3>
+                    <p class="text-gray-600 mb-6">
+                        Saya adalah mahasiswa Ilmu Komputer dengan dasar yang kuat dalam pengembangan web, desain UI/UX, dan prinsip rekayasa perangkat lunak. 
+                        Perjalanan akademik saya telah membekali saya dengan pengetahuan teoretis dan keterampilan praktis untuk menghadapi tantangan teknologi yang kompleks.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Saya memiliki pengalaman mengerjakan berbagai proyek yang mencakup dari aplikasi web sederhana hingga sistem yang lebih kompleks. 
+                        Pengalaman ini membantu saya memahami siklus pengembangan lengkap, dari konseptualisasi hingga penyebaran.
+                    </p>
+                    <p class="text-gray-600">
+                        Minat saya terletak pada pembuatan antarmuka yang ramah pengguna sambil memastikan fungsionalitas backend yang kuat. 
+                        Saya terus mempelajari teknologi dan metodologi baru untuk tetap terdepan di bidang yang berkembang pesat ini.
+                    </p>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-light p-8 rounded-xl">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Education & Experience</h4>
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+                                        <i class="fas fa-graduation-cap text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">Mahasiswa Ilmu Komputer</h5>
+                                    <p class="text-gray-600">Universitas ...</p>
+                                    <p class="text-gray-500 text-sm">2023 - Sekarang</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
+                                        <i class="fas fa-laptop-code text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">Project Pengembangan Web</h5>
+                                    <p class="text-gray-600">Berbagai proyek pribadi dan akademik</p>
+                                    <p class="text-gray-500 text-sm">2023 - Sekarang</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+                                        <i class="fas fa-paint-brush text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-800">Desain UI/UX</h5>
+                                    <p class="text-gray-600">Merancang antarmuka pengguna yang intuitif</p>
+                                    <p class="text-gray-500 text-sm">2023 - Sekarang</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 gradient-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title" data-aos="fade-up">Keahlian Teknis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Pengembangan Web</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">HTML/CSS</span>
+                                <span class="font-medium text-gray-700">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">JavaScript</span>
+                                <span class="font-medium text-gray-700">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">React</span>
+                                <span class="font-medium text-gray-700">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">Node.js</span>
+                                <span class="font-medium text-gray-700">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Desain & Alat</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">Desain UI/UX</span>
+                                <span class="font-medium text-gray-700">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">Figma</span>
+                                <span class="font-medium text-gray-700">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">Git/GitHub</span>
+                                <span class="font-medium text-gray-700">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium text-gray-700">Desain Database</span>
+                                <span class="font-medium text-gray-700">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title" data-aos="fade-up">Project Saya</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Kalkulator Luas -->
+                <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-48 bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                        <i class="fas fa-calculator text-5xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Kalkulator Luas Bangun Datar</h3>
+                        <p class="text-gray-600 mb-5">Kalkulator interaktif untuk menghitung luas berbagai bangun datar.</p>
+                        <button class="bg-primary text-white py-2 px-5 rounded-lg font-medium hover:bg-secondary transition-colors w-full" onclick="openCalculator()">Buka Kalkulator</button>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Website Portofolio -->
+                <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-gradient-to-r from-secondary to-accent flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-5xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Website Portofolio</h3>
+                        <p class="text-gray-600 mb-5">Website portofolio responsif yang menampilkan proyek, keahlian, dan informasi kontak.</p>
+                        <a href="#" class="bg-gray-500 text-white py-2 px-5 rounded-lg font-medium hover:bg-gray-600 transition-colors w-full inline-block text-center">Lihat Detail</a>
+                    </div>
+                </div>
+                
+                <!-- Project 3: E-Commerce (Kosong) -->
+                <div class="project-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-gradient-to-r from-accent to-light flex items-center justify-center">
+                        <i class="fas fa-shopping-cart text-5xl text-gray-800"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">UI/UX E-Commerce</h3>
+                        <p class="text-gray-600 mb-5">Desain UI/UX untuk platform e-commerce (dalam pengembangan).</p>
+                        <a href="#" class="bg-gray-500 text-white py-2 px-5 rounded-lg font-medium hover:bg-gray-600 transition-colors w-full inline-block text-center">Segera Hadir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Modal -->
+    <div id="calculatorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCalculator()">&times;</span>
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-2">Kalkulator Luas Bangun Datar</h2>
+                <p class="text-gray-600 mb-6">Hitung luas berbagai bangun datar geometri</p>
+                
+                <div class="flex border-b mb-6">
+                    <button class="tab-button active" data-tab="calculator">Kalkulator</button>
+                    <button class="tab-button" data-tab="history">Riwayat Perhitungan</button>
+                </div>
+                
+                <!-- Calculator Tab -->
+                <div id="calculator-tab" class="tab-content active">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block font-medium mb-2">Nama</label>
+                            <input type="text" id="nama" placeholder="Masukkan nama Anda" class="calculator-input">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">NIM</label>
+                            <input type="text" id="nim" placeholder="Masukkan NIM Anda" class="calculator-input">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block font-medium mb-2">Pilih Bangun Datar</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="persegi" class="mr-2" checked>
+                                <span>Persegi</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="persegiPanjang" class="mr-2">
+                                <span>Persegi Panjang</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="segitiga" class="mr-2">
+                                <span>Segitiga</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="lingkaran" class="mr-2">
+                                <span>Lingkaran</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="jajarGenjang" class="mr-2">
+                                <span>Jajar Genjang</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="belahKetupat" class="mr-2">
+                                <span>Belah Ketupat</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="layangLayang" class="mr-2">
+                                <span>Layang-layang</span>
+                            </label>
+                            <label class="shape-option">
+                                <input type="radio" name="shape" value="trapesium" class="mr-2">
+                                <span>Trapesium</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="formula-box" id="formulaDisplay">
+                        <strong>Rumus:</strong> Luas = s × s (s = sisi)
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div id="input-fields">
+                            <!-- Input fields akan dimasukkan secara dinamis di sini -->
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-3 mb-6">
+                        <button class="flex-1 bg-primary text-white py-3 rounded-lg font-medium hover:bg-secondary transition-colors" onclick="hitungLuas()">Hitung Luas</button>
+                        <button class="flex-1 bg-gray-500 text-white py-3 rounded-lg font-medium hover:bg-gray-600 transition-colors" onclick="resetKalkulator()">Reset</button>
+                    </div>
+                    
+                    <div id="result-container" class="hidden">
+                        <div class="result-box">
+                            <h3 class="font-semibold text-lg mb-2">Hasil Perhitungan</h3>
+                            <div id="result-text" class="text-gray-700"></div>
+                        </div>
+                        <button class="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors mt-4" onclick="simpanPerhitungan()">Simpan Perhitungan</button>
+                    </div>
+                </div>
+                
+                <!-- History Tab -->
+                <div id="history-tab" class="tab-content hidden">
+                    <div class="mb-4">
+                        <h3 class="font-semibold text-lg">Riwayat Perhitungan</h3>
+                        <p class="text-gray-600">Perhitungan Anda yang sebelumnya disimpan</p>
+                    </div>
+                    <div id="history-list" class="border rounded-lg">
+                        <!-- Item riwayat akan dimasukkan secara dinamis di sini -->
+                    </div>
+                    <button class="w-full bg-red-500 text-white py-3 rounded-lg font-medium hover:bg-red-600 transition-colors mt-4" onclick="hapusRiwayat()">Hapus Riwayat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 gradient-bg">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title" data-aos="fade-up">Hubungi Saya</h2>
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Mari Bekerja Sama</h3>
+                    <p class="text-gray-600 mb-8">
+                        Saya selalu terbuka untuk mendiskusikan peluang baru, kolaborasi, atau sekadar mengobrol tentang teknologi dan desain.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Email</h4>
+                                <p class="text-gray-600">kadek.sugiartini19@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Telepon</h4>
+                                <p class="text-gray-600">+62 82342796629</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Lokasi</h4>
+                                <p class="text-gray-600">Bali, Indonesia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4 mt-8">
+                        <a href="https://instagram.com/yourprofile" class="social-icon" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/6282342796629" class="social-icon" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://github.com/yourprofile" class="social-icon" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <form id="contactForm" class="bg-white p-8 rounded-xl shadow-md">
+                        <div class="mb-6">
+                            <label for="name" class="block font-medium mb-2">Nama</label>
+                            <input type="text" id="name" class="calculator-input" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="calculator-input" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block font-medium mb-2">Subjek</label>
+                            <input type="text" id="subject" class="calculator-input" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block font-medium mb-2">Pesan</label>
+                            <textarea id="message" class="calculator-input min-h-[150px]" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-secondary transition-colors">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2">Kadek Sugiartini</h3>
+                    <p class="text-light">Computer Science Student & Aspiring Developer</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-light hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="text-light hover:text-white transition-colors">About</a>
+                    <a href="#projects" class="text-light hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="text-light hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-light">
+                <p>&copy; 2025 Kadek Sugiartini. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Mobile menu functionality
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll to top functionality
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Show/hide scroll to top button based on scroll position
+        window.addEventListener('scroll', function() {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        // Photo upload functionality
+        function uploadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageDataURL = e.target.result;
+                    // Save to localStorage
+                    localStorage.setItem('profilePhoto', imageDataURL);
+                    // Display the image
+                    document.getElementById('profilePhoto').src = imageDataURL;
+                    
+                    // Show success message
+                    tampilkanNotifikasi('Foto profil berhasil diperbarui!', 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Load saved photo on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedPhoto = localStorage.getItem('profilePhoto');
+            if (savedPhoto) {
+                document.getElementById('profilePhoto').src = savedPhoto;
+            }
+            
+            // Initialize skill bars animation
+            animasikanSkillBars();
+            
+            // Initialize calculator form
+            perbaruiFormKalkulator();
+        });
+
+        // Animate skill bars when in view
+        function animasikanSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+
+        // Calculator functionality
+        function openCalculator() {
+            document.getElementById('calculatorModal').style.display = 'flex';
+            // Switch to calculator tab when opening
+            gantiTab('calculator');
+        }
+
+        function closeCalculator() {
+            document.getElementById('calculatorModal').style.display = 'none';
+        }
+
+        // Tab switching functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                gantiTab(tabName);
+            });
+        });
+
+        function gantiTab(tabName) {
+            // Update active tab button
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            
+            // Update active tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // If switching to history tab, load history
+            if (tabName === 'history') {
+                muatRiwayatPerhitungan();
+            }
+        }
+
+        // Update calculator form based on selected shape
+        document.querySelectorAll('input[name="shape"]').forEach(radio => {
+            radio.addEventListener('change', perbaruiFormKalkulator);
+        });
+
+        function perbaruiFormKalkulator() {
+            const shape = document.querySelector('input[name="shape"]:checked').value;
+            const inputFields = document.getElementById('input-fields');
+            const formulaDisplay = document.getElementById('formulaDisplay');
+            let html = '';
+            let formula = '';
+
+            if (shape === 'persegi') {
+                formula = '<strong>Rumus:</strong> Luas = s × s (s = sisi)';
+                html = `
+                    <label class="block font-medium mb-2">Panjang Sisi</label>
+                    <input type="number" id="sisi" placeholder="Masukkan panjang sisi" class="calculator-input" step="0.01" min="0">
+                `;
+            } else if (shape === 'persegiPanjang') {
+                formula = '<strong>Rumus:</strong> Luas = p × l (p = panjang, l = lebar)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Panjang</label>
+                            <input type="number" id="panjang" placeholder="Masukkan panjang" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Lebar</label>
+                            <input type="number" id="lebar" placeholder="Masukkan lebar" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            } else if (shape === 'segitiga') {
+                formula = '<strong>Rumus:</strong> Luas = ½ × a × t (a = alas, t = tinggi)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Alas</label>
+                            <input type="number" id="alas" placeholder="Masukkan alas" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Tinggi</label>
+                            <input type="number" id="tinggi" placeholder="Masukkan tinggi" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            } else if (shape === 'lingkaran') {
+                formula = '<strong>Rumus:</strong> Luas = π × r² (π = 3.14159, r = jari-jari)';
+                html = `
+                    <label class="block font-medium mb-2">Jari-jari</label>
+                    <input type="number" id="jariJari" placeholder="Masukkan jari-jari" class="calculator-input" step="0.01" min="0">
+                `;
+            } else if (shape === 'jajarGenjang') {
+                formula = '<strong>Rumus:</strong> Luas = a × t (a = alas, t = tinggi)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Alas</label>
+                            <input type="number" id="alasJG" placeholder="Masukkan alas" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Tinggi</label>
+                            <input type="number" id="tinggiJG" placeholder="Masukkan tinggi" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            } else if (shape === 'belahKetupat') {
+                formula = '<strong>Rumus:</strong> Luas = ½ × d₁ × d₂ (d₁, d₂ = diagonal)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Diagonal 1</label>
+                            <input type="number" id="d1" placeholder="Masukkan diagonal 1" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Diagonal 2</label>
+                            <input type="number" id="d2" placeholder="Masukkan diagonal 2" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            } else if (shape === 'layangLayang') {
+                formula = '<strong>Rumus:</strong> Luas = ½ × d₁ × d₂ (d₁, d₂ = diagonal)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Diagonal 1</label>
+                            <input type="number" id="d1LL" placeholder="Masukkan diagonal 1" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Diagonal 2</label>
+                            <input type="number" id="d2LL" placeholder="Masukkan diagonal 2" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            } else if (shape === 'trapesium') {
+                formula = '<strong>Rumus:</strong> Luas = ½ × (a + b) × t (a, b = sisi sejajar, t = tinggi)';
+                html = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block font-medium mb-2">Sisi Atas</label>
+                            <input type="number" id="sisiAtas" placeholder="Masukkan sisi atas" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Sisi Bawah</label>
+                            <input type="number" id="sisiBawah" placeholder="Masukkan sisi bawah" class="calculator-input" step="0.01" min="0">
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-2">Tinggi</label>
+                            <input type="number" id="tinggiT" placeholder="Masukkan tinggi" class="calculator-input" step="0.01" min="0">
+                        </div>
+                    </div>
+                `;
+            }
+            
+            formulaDisplay.innerHTML = formula;
+            inputFields.innerHTML = html;
+            // Hide result container when form changes
+            document.getElementById('result-container').classList.add('hidden');
+        }
+
+        function hitungLuas() {
+            const shape = document.querySelector('input[name="shape"]:checked').value;
+            let luas = 0;
+            let rumus = '';
+            let detail = '';
+            
+            if (shape === 'persegi') {
+                const sisi = parseFloat(document.getElementById('sisi').value);
+                if (isNaN(sisi) || sisi <= 0) {
+                    tampilkanNotifikasi('Masukkan panjang sisi yang valid', 'error');
+                    return;
+                }
+                luas = sisi * sisi;
+                rumus = `Luas = ${sisi} × ${sisi}`;
+                detail = `Persegi dengan sisi ${sisi} satuan`;
+            } else if (shape === 'persegiPanjang') {
+                const panjang = parseFloat(document.getElementById('panjang').value);
+                const lebar = parseFloat(document.getElementById('lebar').value);
+                if (isNaN(panjang) || panjang <= 0 || isNaN(lebar) || lebar <= 0) {
+                    tampilkanNotifikasi('Masukkan panjang dan lebar yang valid', 'error');
+                    return;
+                }
+                luas = panjang * lebar;
+                rumus = `Luas = ${panjang} × ${lebar}`;
+                detail = `Persegi panjang dengan panjang ${panjang} satuan dan lebar ${lebar} satuan`;
+            } else if (shape === 'segitiga') {
+                const alas = parseFloat(document.getElementById('alas').value);
+                const tinggi = parseFloat(document.getElementById('tinggi').value);
+                if (isNaN(alas) || alas <= 0 || isNaN(tinggi) || tinggi <= 0) {
+                    tampilkanNotifikasi('Masukkan alas dan tinggi yang valid', 'error');
+                    return;
+                }
+                luas = 0.5 * alas * tinggi;
+                rumus = `Luas = ½ × ${alas} × ${tinggi}`;
+                detail = `Segitiga dengan alas ${alas} satuan dan tinggi ${tinggi} satuan`;
+            } else if (shape === 'lingkaran') {
+                const jariJari = parseFloat(document.getElementById('jariJari').value);
+                if (isNaN(jariJari) || jariJari <= 0) {
+                    tampilkanNotifikasi('Masukkan jari-jari yang valid', 'error');
+                    return;
+                }
+                luas = Math.PI * jariJari * jariJari;
+                rumus = `Luas = π × ${jariJari}²`;
+                detail = `Lingkaran dengan jari-jari ${jariJari} satuan`;
+            } else if (shape === 'jajarGenjang') {
+                const alas = parseFloat(document.getElementById('alasJG').value);
+                const tinggi = parseFloat(document.getElementById('tinggiJG').value);
+                if (isNaN(alas) || alas <= 0 || isNaN(tinggi) || tinggi <= 0) {
+                    tampilkanNotifikasi('Masukkan alas dan tinggi yang valid', 'error');
+                    return;
+                }
+                luas = alas * tinggi;
+                rumus = `Luas = ${alas} × ${tinggi}`;
+                detail = `Jajar genjang dengan alas ${alas} satuan dan tinggi ${tinggi} satuan`;
+            } else if (shape === 'belahKetupat') {
+                const d1 = parseFloat(document.getElementById('d1').value);
+                const d2 = parseFloat(document.getElementById('d2').value);
+                if (isNaN(d1) || d1 <= 0 || isNaN(d2) || d2 <= 0) {
+                    tampilkanNotifikasi('Masukkan diagonal yang valid', 'error');
+                    return;
+                }
+                luas = 0.5 * d1 * d2;
+                rumus = `Luas = ½ × ${d1} × ${d2}`;
+                detail = `Belah ketupat dengan diagonal ${d1} satuan dan ${d2} satuan`;
+            } else if (shape === 'layangLayang') {
+                const d1 = parseFloat(document.getElementById('d1LL').value);
+                const d2 = parseFloat(document.getElementById('d2LL').value);
+                if (isNaN(d1) || d1 <= 0 || isNaN(d2) || d2 <= 0) {
+                    tampilkanNotifikasi('Masukkan diagonal yang valid', 'error');
+                    return;
+                }
+                luas = 0.5 * d1 * d2;
+                rumus = `Luas = ½ × ${d1} × ${d2}`;
+                detail = `Layang-layang dengan diagonal ${d1} satuan dan ${d2} satuan`;
+            } else if (shape === 'trapesium') {
+                const sisiAtas = parseFloat(document.getElementById('sisiAtas').value);
+                const sisiBawah = parseFloat(document.getElementById('sisiBawah').value);
+                const tinggi = parseFloat(document.getElementById('tinggiT').value);
+                if (isNaN(sisiAtas) || sisiAtas <= 0 || isNaN(sisiBawah) || sisiBawah <= 0 || isNaN(tinggi) || tinggi <= 0) {
+                    tampilkanNotifikasi('Masukkan sisi atas, sisi bawah, dan tinggi yang valid', 'error');
+                    return;
+                }
+                luas = 0.5 * (sisiAtas + sisiBawah) * tinggi;
+                rumus = `Luas = ½ × (${sisiAtas} + ${sisiBawah}) × ${tinggi}`;
+                detail = `Trapesium dengan sisi atas ${sisiAtas} satuan, sisi bawah ${sisiBawah} satuan, dan tinggi ${tinggi} satuan`;
+            }
+            
+            // Display result
+            const resultText = document.getElementById('result-text');
+            resultText.innerHTML = `
+                <p><strong>Bangun Datar:</strong> ${getNamaBangun(shape)}</p>
+                <p><strong>Detail:</strong> ${detail}</p>
+                <p><strong>Rumus:</strong> ${rumus}</p>
+                <p><strong>Luas:</strong> ${luas.toFixed(2)} satuan persegi</p>
+            `;
+            
+            document.getElementById('result-container').classList.remove('hidden');
+        }
+
+        function getNamaBangun(shapeValue) {
+            const shapes = {
+                'persegi': 'Persegi',
+                'persegiPanjang': 'Persegi Panjang',
+                'segitiga': 'Segitiga',
+                'lingkaran': 'Lingkaran',
+                'jajarGenjang': 'Jajar Genjang',
+                'belahKetupat': 'Belah Ketupat',
+                'layangLayang': 'Layang-layang',
+                'trapesium': 'Trapesium'
+            };
+            return shapes[shapeValue] || 'Bangun Datar Tidak Dikenal';
+        }
+
+        function resetKalkulator() {
+            document.getElementById('nama').value = '';
+            document.getElementById('nim').value = '';
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.value = '';
+            });
+            document.getElementById('result-container').classList.add('hidden');
+        }
+
+        function simpanPerhitungan() {
+            const nama = document.getElementById('nama').value.trim();
+            const nim = document.getElementById('nim').value.trim();
+            const shape = document.querySelector('input[name="shape"]:checked').value;
+            const resultText = document.getElementById('result-text').textContent;
+            
+            if (!nama || !nim) {
+                tampilkanNotifikasi('Masukkan nama dan NIM Anda', 'error');
+                return;
+            }
+            
+            // Get current calculations from localStorage
+            let perhitungan = JSON.parse(localStorage.getItem('perhitunganLuas')) || [];
+            
+            // Add new calculation
+            perhitungan.unshift({
+                nama: nama,
+                nim: nim,
+                bangun: getNamaBangun(shape),
+                hasil: resultText,
+                waktu: new Date().toLocaleString('id-ID')
+            });
+            
+            // Keep only last 10 calculations
+            if (perhitungan.length > 10) {
+                perhitungan = perhitungan.slice(0, 10);
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('perhitunganLuas', JSON.stringify(perhitungan));
+            
+            tampilkanNotifikasi('Perhitungan berhasil disimpan!', 'success');
+            resetKalkulator();
+        }
+
+        function muatRiwayatPerhitungan() {
+            const historyList = document.getElementById('history-list');
+            const perhitungan = JSON.parse(localStorage.getItem('perhitunganLuas')) || [];
+            
+            if (perhitungan.length === 0) {
+                historyList.innerHTML = '<div class="p-4 text-center text-gray-500">Belum ada perhitungan yang disimpan</div>';
+                return;
+            }
+            
+            let html = '';
+            perhitungan.forEach((calc, index) => {
+                html += `
+                    <div class="history-item">
+                        <div>
+                            <div class="font-medium">${calc.nama} (${calc.nim})</div>
+                            <div class="text-sm text-gray-600">${calc.bangun} - ${calc.waktu}</div>
+                        </div>
+                        <button class="text-primary hover:text-secondary" onclick="lihatPerhitungan(${index})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
+
+        function lihatPerhitungan(index) {
+            const perhitungan = JSON.parse(localStorage.getItem('perhitunganLuas')) || [];
+            if (perhitungan[index]) {
+                const calc = perhitungan[index];
+                alert(`Detail Perhitungan:\n\nNama: ${calc.nama}\nNIM: ${calc.nim}\nBangun Datar: ${calc.bangun}\n\n${calc.hasil}\n\nDisimpan: ${calc.waktu}`);
+            }
+        }
+
+        function hapusRiwayat() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua riwayat perhitungan?')) {
+                localStorage.removeItem('perhitunganLuas');
+                muatRiwayatPerhitungan();
+                tampilkanNotifikasi('Riwayat perhitungan dihapus', 'success');
+            }
+        }
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            tampilkanNotifikasi('Pesan berhasil dikirim! Saya akan membalas pesan Anda segera.', 'success');
+            this.reset();
+        });
+
+        // Notification system
+        function tampilkanNotifikasi(pesan, tipe) {
+            // Create notification element
+            const notifikasi = document.createElement('div');
+            notifikasi.className = `fixed top-5 right-5 z-50 p-4 rounded-lg shadow-lg max-w-sm ${
+                tipe === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+            }`;
+            notifikasi.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${tipe === 'success' ? 'check' : 'exclamation'}-circle mr-2"></i>
+                    <span>${pesan}</span>
+                </div>
+            `;
+            
+            // Add to page
+            document.body.appendChild(notifikasi);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notifikasi.remove();
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('calculatorModal');
+            if (event.target === modal) {
+                closeCalculator();
+            }
+        });
+    </script>
+</body>
+</html>
