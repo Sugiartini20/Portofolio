@@ -3,28 +3,28 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   const projects = [
-    {
-      id: 1,
-      title: "Kalkulator Luas Bangun Datar",
-      description: "Kalkulator interaktif untuk menghitung luas berbagai bangun datar.",
-      link: "/calculator",
-      status: "ready"
-    },
-    {
-      id: 2, 
-      title: "Website Portofolio",
-      description: "Website portofolio responsif yang menampilkan proyek, keahlian, dan informasi kontak.",
-      link: "/",
-      status: "ready"
-    },
-    {
-      id: 3,
-      title: "UI/UX E-Commerce", 
-      description: "Desain UI/UX untuk platform e-commerce (dalam pengembangan).",
-      link: "/ecommerce",  // ✅ LINK SUDAH BENAR
-      status: "ready"      // ✅ UBAH JADI "ready" BUKAN "coming-soon"
-    }
-  ];
+  {
+    id: 1,
+    title: "Kalkulator Luas Bangun Datar",
+    description: "Kalkulator interaktif untuk menghitung luas berbagai bangun datar.",
+    link: "/calculator",
+    status: "ready"
+  },
+  {
+    id: 2, 
+    title: "Website Portofolio",
+    description: "Website portofolio responsif yang menampilkan proyek, keahlian, dan informasi kontak.",
+    link: "/",
+    status: "ready"
+  },
+  {
+    id: 3,
+    title: "UI/UX E-Commerce", 
+    description: "Desain UI/UX untuk platform e-commerce (dalam pengembangan).",
+    link: "/ecommerce",
+    status: "ready"  // ✅ INI YANG PERLU DIUBAH
+  }
+];
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
